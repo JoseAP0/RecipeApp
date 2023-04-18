@@ -1,22 +1,22 @@
 class RecipesController < ApplicationController
 
   def index
-    @recipe = Recipe.new
-    @recipe.ingredients.build
   end
 
-  def new
-    @recipe = Recipe.new
-  end
   def create
     @recipe = Recipe.new(recipe_params)
     if @recipe.save
       flash[:success] = "Recipe successfully created."
       redirect_to root_path
+      puts ('deu bom')
     else
       redirect_to root_path
       flash[:error] = "An error ocurred."
+      puts ('deu ruim')
     end
+  end
+  def submit
+    render 'create'
   end
 
   def search
