@@ -12,11 +12,11 @@ class RecipesController < ApplicationController
     if @recipe.save
       flash[:success] = "Recipe successfully created."
       redirect_to root_path
-      puts ('deu bom')
+      puts('deu bom')
     else
       redirect_to root_path
       flash[:error] = "An error ocurred."
-      puts ('deu ruim')
+      puts('deu ruim')
     end
   end
 
@@ -36,7 +36,6 @@ class RecipesController < ApplicationController
   end
 
   private
-
   def recipe_params
     params.require(:recipe).permit(:name, :description, :duration, :prepare, ingredients_attributes: [:name])
   end
