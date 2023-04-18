@@ -24,6 +24,10 @@ class RecipesController < ApplicationController
     @result = Recipe.where("LOWER (name) LIKE ?", "%#{@query.downcase}%")
   end
 
+  def all
+    @result = Recipe.all
+  end
+
   private
 
   def recipe_params
