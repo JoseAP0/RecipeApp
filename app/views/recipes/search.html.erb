@@ -1,0 +1,28 @@
+<h1> Query Result </h1>
+
+<% if @result.any? %>
+  <% @result.each do |recipe| %>
+  <p> <%= recipe.name %></p>
+  <p> <%= recipe.description %></p>
+  <p> <%= recipe.duration.strftime("%H:%M")%></p>
+
+    <% recipe.ingredients.each do |ingredient|%>
+      <% ingredient_name = ingredient.name.split("\n") %>
+      <% ingredient_name.each do |name| %>
+        <ul>
+          <li><%= name.strip %></li>
+        </ul>
+      <% end %>
+    <% end %>
+
+    <% recipe_prepare = recipe.prepare.split("\n")%>
+    <% recipe_prepare.each do |prep| %>
+      <ul>
+        <li><%= prep.strip %></li>
+      </ul>
+    <% end %>
+
+  <% end %>
+<% else %>
+  <p> The search returned no results. </p>
+<% end %>
