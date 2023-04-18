@@ -1,6 +1,10 @@
 class RecipesController < ApplicationController
 
+  before_action :authenticate_user!, only: [:create, :submit]
   def index
+  end
+  def edit
+    @recipe = Recipe.find(params[:id])
   end
 
   def create
@@ -15,7 +19,10 @@ class RecipesController < ApplicationController
       puts ('deu ruim')
     end
   end
+
   def submit
+    @recipe = Recipe.new
+    @ingredients = @recipe.ingredients.build
     render 'create'
   end
 
@@ -31,6 +38,6 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:name, :description, :duration, :prepare, ingredients_attributes:[:name])
+    params.require(:recipe).permit(:name, :description, :duration, :prepare, ingredients_attributes: [:name])
   end
 end
