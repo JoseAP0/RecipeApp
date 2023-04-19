@@ -9,10 +9,10 @@ Rails.application.routes.draw do
   get '/all', to: 'recipes#all'
   get '/search', to: 'recipes#search'
   get '/create', to: 'recipes#submit'
+  post :recipes, to: 'recipes#create'
 
   get '/list', to: 'recipes#list'
 
-  get :update, to: 'recipes#update'
-  patch '/recipes/:id', to: 'recipes#update'
-  post :recipes, to: 'recipes#create'
+  get :edit, to: 'recipes#edit'
+  patch :update, to: 'recipes#update'
 end

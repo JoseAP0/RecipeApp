@@ -3,7 +3,7 @@
 <% if @result.any? %>
   <% @result.each do |recipe| %>
     <ul>
-      <li><%= button_to recipe.name, recipes_path, method: :patch, params: {id: recipe.id} %></li>
+      <li><%= button_to recipe.name, edit_path, method: :get, params: {id: recipe.id} %></li>
     </ul>
   <% end %>
 <% else %>
