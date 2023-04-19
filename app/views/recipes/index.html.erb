@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <title>Tropiko</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <!-- Basic -->
   <meta charset="utf-8" />
@@ -55,10 +53,6 @@
               <li class="nav-item">
                 <%= link_to 'My Recipes', list_path, class: 'nav-link', method: :get%>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact us</a>
-              </li>
-            </ul>
             <%= form_with url: '/search', class: 'form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0', method: :get do |form| %>
 
               <%= form.text_field :search, placeholder: 'Search your recipe here' %>
