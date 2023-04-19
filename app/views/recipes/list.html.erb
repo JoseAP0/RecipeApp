@@ -4,6 +4,7 @@
   <% @result.each do |recipe| %>
     <ul>
       <li><%= button_to recipe.name, edit_path, method: :get, params: {id: recipe.id} %></li>
+      <%= button_to 'Delete Recipe', destroy_path, method: :delete, params: {id: recipe.id}  %>
     </ul>
   <% end %>
 <% else %>

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get '/list', to: 'recipes#list'
 
+  delete :destroy, to: 'recipes#destroy'
   get :edit, to: 'recipes#edit'
   patch :update, to: 'recipes#update'
 end
