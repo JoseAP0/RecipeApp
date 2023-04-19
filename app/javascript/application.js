@@ -2,5 +2,10 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
+import $ from 'jquery';
+window.$ = jQuery = $;
+
+//= require jquery
+//= require jquery3
 //= require jquery_ujs
 //= require jquery-ui

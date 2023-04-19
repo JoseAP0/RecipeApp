@@ -4,11 +4,21 @@ class RecipesController < ApplicationController
   def index
   end
   def edit
+    @recipe = Recipe.update(recipe_params)
+  end
+
+  def update
     @recipe = Recipe.find(params[:id])
+
+    if @recipe.update(recipe_params)
+      flash[:success] = 'Recipe was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def create
-    @recipe = Recipe.new(recipe_params)
+    @recipe = current_user.recipes.build(recipe_params)
     if @recipe.save
       flash[:success] = "Recipe successfully created."
       redirect_to root_path
@@ -35,7 +45,20 @@ class RecipesController < ApplicationController
     @result = Recipe.all
   end
 
+  def list
+    if user_signed_in?
+    @result = current_user.recipes
+    else
+      flash[:warning] = "You are not logged in."
+      redirect_to root_path
+    end
+  end
+
   private
+
+  def update_recipe_params
+    params.permit(:id)
+  end
   def recipe_params
     params.require(:recipe).permit(:name, :description, :duration, :prepare, ingredients_attributes: [:name])
   end

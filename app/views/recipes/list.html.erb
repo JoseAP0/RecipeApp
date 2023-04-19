@@ -1,0 +1,11 @@
+<h1> Query Result </h1>
+
+<% if @result.any? %>
+  <% @result.each do |recipe| %>
+    <ul>
+      <li><%= button_to recipe.name, recipes_path, method: :patch, params: {id: recipe.id} %></li>
+    </ul>
+  <% end %>
+<% else %>
+  <p> You did not submit any Recipe. </p>
+<% end %>
