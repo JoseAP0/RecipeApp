@@ -1,3 +1,8 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   color: #000000;
@@ -482,7 +487,10 @@ a:focus {
 
 /* end info section */
 
-
+svg {
+  margin-right: .5rem;
+  margin-left: .5rem;
+}
 /* footer section*/
 
 .footer_section {
@@ -507,5 +515,14 @@ a:focus {
 
 .custom_dark-btn {
   margin: 5px;
+}
+
+.main-content {
+  width: 100%;
+  margin: 5rem 0;
+}
+
+.ingredients-content, .prepare-content {
+  margin: 0 3rem;
 }
 /* end footer section*/

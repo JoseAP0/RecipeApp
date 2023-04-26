@@ -1,11 +1,97 @@
-<h1> Query Result </h1>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Tropiko</title>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="../stylesheets/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="../stylesheets/responsive.css" rel="stylesheet" />
+</head><!-- header section strats -->
+
+<header class="header_section">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
+      <a class="navbar-brand" href="/">
+        <%= image_tag 'logo.png'%>
+        <span> Tropiko </span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <%= link_to 'home', root_path, class: 'nav-link', method: :get%>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Recipes', all_path, class: 'nav-link', method: :get%>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'My Recipes', list_path, class: 'nav-link', method: :get%>
+            </li>
+            <%= form_with url: '/search', class: 'form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0', method: :get do |form| %>
+
+              <%= form.text_field :search, placeholder: 'Search your recipe here' %>
+              <%= form.submit 'search', class: 'btn  my-2 my-sm-0 nav_search-btn' %>
+            <% end %>
+          </ul>
+        </div>
+        <div class="quote_btn-container ml-0 ml-lg-4 d-flex justify-content-center">
+          <% if user_signed_in? %>
+            <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
+          <% else %>
+            <%= link_to 'Login', new_user_session_path %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+<!-- end header section -->
 
 <% if @result.any? %>
   <% @result.each do |recipe| %>
-  <p> <%= recipe.name %></p>
-  <p> <%= recipe.description %></p>
-  <p> <%= recipe.duration.strftime("%H:%M")%></p>
-
+    <div class="d-flex container">
+      <div class="d-flex flex-column align-items-center main-content">
+  <h1> <%= recipe.name %></h1>
+  <div class="d-flex d-inline ">
+  <h5> <%= recipe.description %></h5>
+    <div class="d-flex d-inline">
+      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+           width="24" height="24"
+           viewBox="0,0,256,256"
+           style="fill:#000000;">
+        <g fill="#fc5d35" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c5.511,0 10,-4.489 10,-10c0,-5.511 -4.489,-10 -10,-10zM12,4c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8zM11,6v6.41406l4.29297,4.29297l1.41406,-1.41406l-3.70703,-3.70703v-5.58594z"></path></g></g>
+      </svg>
+      <p> <%= recipe.duration.strftime("%H:%M")%></p>
+    </div>
+  </div>
+    <div class="d-flex d-inline">
+      <div class="ingredients-content">
+        <h3> Ingredients </h3>
     <% recipe.ingredients.each do |ingredient|%>
       <% ingredient_name = ingredient.name.split("\n") %>
       <% ingredient_name.each do |name| %>
@@ -14,15 +100,21 @@
         </ul>
       <% end %>
     <% end %>
-
+      </div>
+      <div class="prepare-content">
+        <h3> Preparation Method </h3>
     <% recipe_prepare = recipe.prepare.split("\n")%>
-    <% recipe_prepare.each do |prep| %>
+    <% recipe_prepare.each_with_index do |prep, index| %>
       <ul>
-        <li><%= prep.strip %></li>
+        <%= "#{index + 1}. #{prep.strip}" %>
       </ul>
     <% end %>
-
+      </div>
+    </div>
+  </div>
+</div>
   <% end %>
 <% else %>
   <p> The search returned no results. </p>
 <% end %>
+

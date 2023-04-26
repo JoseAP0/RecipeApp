@@ -1,28 +1,110 @@
-<h1> All recipes </h1>
+<!DOCTYPE html>
+<html>
 
-<% if @result.any? %>
-  <% @result.each do |recipe| %>
-    <p> <%= recipe.name %></p>
-    <p> <%= recipe.description %></p>
-    <p> <%= recipe.duration.strftime("%H:%M")%></p>
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
 
-    <% recipe.ingredients.each do |ingredient|%>
-      <% ingredient_name = ingredient.name.split("\n") %>
-      <% ingredient_name.each do |name| %>
-        <ul>
-          <li><%= name.strip %></li>
-        </ul>
-      <% end %>
-    <% end %>
+  <title>Tropiko</title>
 
-    <% recipe_prepare = recipe.prepare.split("\n")%>
-    <% recipe_prepare.each do |prep| %>
-      <ul>
-        <li><%= prep.strip %></li>
-      </ul>
-    <% end %>
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
 
-  <% end %>
-<% else %>
-  <p> Sorry, there are no recipes yet.</p>
-<% end %>
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="../stylesheets/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="../stylesheets/responsive.css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="hero_area sub_pages">
+  <!-- header section strats -->
+  <header class="header_section">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
+        <a class="navbar-brand" href="/">
+          <%= image_tag 'logo.png'%>
+          <span> Tropiko </span></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <%= link_to 'home', root_path, class: 'nav-link', method: :get%>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'Recipes', all_path, class: 'nav-link', method: :get%>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'My Recipes', list_path, class: 'nav-link', method: :get%>
+                </li>
+                <%= form_with url: '/search', class: 'form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0', method: :get do |form| %>
+
+                  <%= form.text_field :search, placeholder: 'Search your recipe here' %>
+                  <%= form.submit 'search', class: 'btn  my-2 my-sm-0 nav_search-btn' %>
+                <% end %>
+              </ul>
+            </div>
+            <div class="quote_btn-container ml-0 ml-lg-4 d-flex justify-content-center">
+              <% if user_signed_in? %>
+                <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
+              <% else %>
+                <%= link_to 'Login', new_user_session_path %>
+              <% end %>
+            </div>
+          </div>
+      </nav>
+    </div>
+  </header>
+  <!-- end header section -->
+
+</div>
+
+
+<!-- fruits section -->
+
+<section class="fruit_section layout_padding-top">
+  <div class="container">
+    <h2 class="custom_heading">All Recipes</h2>
+    <p class="custom_heading-text">
+      Here you find all the recipes that have been submitted to the website.
+    </p>
+          <% if @result.present? %>
+          <% @result.each do |recipe| %>
+          <div class="row layout_padding2">
+          <div class="col-md-8">
+          <div class="fruit_detail-box">
+
+          <h1> <%= recipe.name %></h1>
+          <%= button_to 'View Recipe', search_path, method: :get, params: {search: recipe.name} %>
+          <% end %>
+          <% end %>
+    </div>
+    </div>
+    </div>
+  </div>
+</section>
+</body>
+<!-- end fruits section -->
+
+<script type="text/javascript" src="../../javascript/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../../javascript/bootstrap.js"></script>
+
+</html>
