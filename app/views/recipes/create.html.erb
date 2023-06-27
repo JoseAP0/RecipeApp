@@ -1,21 +1,28 @@
 <%= form_with model: @recipe, url: recipes_path, method: :post do |form| %>
-
+  <div class="col-md-4">
   <%= form.label 'Recipe Title' %>
   <%= form.text_field :name %>
-
+  </div>
+  <div class="col-md-4">
   <%= form.label 'Description' %>
   <%= form.text_field :description %>
+  </div>
 
-  <%= form.fields_for :ingredients do |ingredient_form| %>
+  <div class="col-md-4">
+    <%= form.fields_for :ingredients do |ingredient_form| %>
     <%= ingredient_form.label :name , 'Ingredients'%>
     <%= ingredient_form.text_area :name %>
   <%  end %>
+  </div>
 
+  <div class="col-md-4">
   <%= form.label 'Duration' %>
   <%= form.text_field :duration %>
-
+  <div class="col-md-4">
   <%= form.label 'Way of preparation' %>
   <%= form.text_area :prepare %>
-
+  </div>
   <%= form.submit 'save' %>
-<%  end %>
+  </div>
+
+<% end %>
